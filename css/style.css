@@ -1,0 +1,179 @@
+body {
+    background-color: #f7f0e7; /* Fondo suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    color: #4a4a4a;
+}
+
+/* Contenedor principal del libro */
+.book-container {
+    width: 700px;
+    height: 500px;
+    position: relative;
+    perspective: 1500px; /* Efecto 3D para el giro */
+}
+
+/* Estilo base de cada página */
+.page {
+    width: 50%; /* La mitad del ancho del contenedor del libro */
+    height: 100%;
+    position: absolute;
+    top: 0;
+    /* Estilo de página */
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* Configuración de la animación de giro */
+    transform-origin: left center; /* Gira desde el borde izquierdo por defecto */
+    transition: transform 0.8s ease-in-out, z-index 0s 0.8s;
+    transform-style: preserve-3d;
+    
+    /* Contenido de la página */
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Opacidad 0 por defecto para todas las páginas de contenido */
+    opacity: 0; 
+}
+
+/* Estilos de portada y contraportada (sin opacidad por defecto) */
+.cover, .back-cover {
+    width: 100%; /* Ocupan todo el ancho cuando están cerradas */
+    background-color: #7f28cf; /* Color más oscuro/temático */
+    color: white;
+}
+
+/* Fuerza la visibilidad y z-index AL INICIO SOLO PARA LA PORTADA */
+.page.cover.active {
+    opacity: 1;
+    z-index: 100;
+    width: 100%; 
+    transform: none; 
+    left: 0; 
+}
+
+/* Imágenes dentro de las páginas */
+.page img {
+    max-width: 80%;
+    max-height: 45%;
+    margin: 15px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estado de la página "activa" (visible y en la posición correcta) */
+.page.active {
+    opacity: 1;
+    z-index: 10;
+    transition: transform 0.8s ease-in-out, z-index 0s 0s;
+}
+
+/* Clase para las páginas que ya se han "girado" */
+.page.flipped {
+    transform: rotateY(-180deg); /* Gira 180 grados */
+    z-index: 5;
+    transition: transform 0.8s ease-in-out, z-index 0s 0s;
+}
+
+/* Posicionamiento y origen de giro específicos */
+.page.right {
+    left: 50%;
+    transform-origin: left;
+}
+.page.left {
+    left: 0;
+    transform-origin: right;
+}
+
+/* Botones de navegación */
+.nav-button {
+    border: 1px solid #c195ed;
+    background-color: #c195ed;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 5px 20px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    border: 1px solid #ab85c0;
+    background-color: #ab85c0;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.page-number {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.8em;
+    color: #aaa;
+    right: 10px;
+}
+
+.page-number2 {
+    position: absolute;
+    bottom: 10px;
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+/* Ajustes para la portada (botones grandes) */
+.cover button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+}
+
+/* Estilos para videos dentro de las páginas */
+.page .page-video {
+    max-width: 80%; /* Igual que las imágenes */
+    max-height: 45%; /* Igual que las imágenes */
+    width: 100%; /* Asegura que el video ocupe el ancho máximo permitido */
+    height: auto; /* Mantiene la relación de aspecto */
+    margin: 15px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Puedes añadir object-fit si quieres que el video cubra el área sin distorsionarse,
+       recortando los bordes si es necesario. Por ejemplo: object-fit: cover; */
+}
+
+/* Posiciona el reproductor de audio en la esquina inferior derecha */
+#musicaFondo {
+    position: fixed; /* Esto asegura que el control de volumen se mantenga visible aunque se desplace el contenido */
+    bottom: 20px;    /* 20px de margen desde el borde inferior */
+    right: 20px;     /* 20px de margen desde el borde derecho */
+    width: 200px;    /* Ajusta el ancho para que la barra de control sea visible y tenga buen tamaño */
+    z-index: 999;    /* Asegura que esté por encima de todos los elementos del libro */
+    background-color: #f7f0e7; /* Fondo ligero para asegurar que se vea sobre colores oscuros */
+    border-radius: 5px; 
+    padding: 5px;
+}
+
+.boton{
+
+    border: 1px solid #c195ed;
+    background-color: #c195ed;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.boton:hover{
+    border: 1px solid #ab85c0;
+    background-color: #ab85c0;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
